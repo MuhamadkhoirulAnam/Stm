@@ -8,32 +8,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 /* Reset & Body */
-*, *::before, *::after { box-sizing: border-box; }
-
-html, body {
-    margin:0; padding:0;
-    width:100%; min-height:100%;
+body {
+    margin:0;
+    padding:0;
     font-family:'Poppins',sans-serif;
+    background:#0f0f1f;
     overflow-x:hidden;
-    background: linear-gradient(135deg, #6a0dad, #ff7f50, #ffcc00);
-    background-size: 300% 300%;
-    animation: gradientBG 20s ease infinite;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
     color:#fff;
+    position:relative;
 }
 
-/* Animate gradient background */
-@keyframes gradientBG {
-    0% {background-position:0% 50%;}
-    50% {background-position:100% 50%;}
-    100% {background-position:0% 50%;}
+/* Particles background */
+body::before {
+    content:"";
+    position:absolute;
+    top:0; left:0;
+    width:100%; height:100%;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+    background-size: 20px 20px;
+    animation: moveParticles 20s linear infinite;
+    z-index:0;
+}
+
+@keyframes moveParticles {
+    0% {background-position:0 0;}
+    100% {background-position:200px 200px;}
 }
 
 /* Overlay */
 .overlay {
     position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background: rgba(0,0,0,0.85);
+    top:0; left:50%;
+    transform: translateX(-50%);
+    width:100%;
+    max-width:375px;
+    height:100%;
+    background: rgba(20,20,30,0.95);
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -42,38 +56,73 @@ html, body {
     padding:20px;
     overflow-y:auto;
     transition: transform 0.6s ease, opacity 0.6s ease;
-    z-index: 1000;
+    z-index:1000;
+    border-radius:20px;
+    box-shadow:0 0 40px rgba(255,165,0,0.4);
 }
 
 .overlay.hidden {
-    transform: translateY(-120%);
+    transform: translateX(-50%) translateY(-120%);
     opacity:0;
 }
 
 .overlay .content {
-    max-width:360px;
     width:100%;
-    text-align:center;
+    position:relative;
 }
 
+/* Logo animation: floating */
 .overlay img.logo {
-    width:120px;
+    width:100px;
     max-width:80%;
     height:auto;
     margin-bottom:20px;
     border-radius:50%;
-    box-shadow:0 0 20px rgba(255,255,255,0.8);
+    box-shadow:0 0 25px rgba(255,215,180,0.5);
+    opacity:1;
+    animation: floatLogo 3s ease-in-out infinite alternate;
 }
 
+@keyframes floatLogo {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-6px) scale(1.02); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+/* Title animation */
 .overlay h1 {
-    font-size:1.5rem;
-    color:#ffdd99;
+    font-size:1.4rem;
+    background: linear-gradient(90deg, #ffa500, #ffdd99);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     margin-bottom:10px;
+    opacity:0;
+    animation: fadeInText 1s 0.5s forwards;
+}
+
+@keyframes fadeInText {
+    0% {opacity:0; transform: translateY(20px);}
+    100% {opacity:1; transform: translateY(0);}
 }
 
 .overlay p {
-    font-size:1rem;
+    font-size:0.95rem;
     line-height:1.5;
+    color:#ddd;
+    opacity:0;
+    animation: fadeInText 1s 1s forwards;
+}
+
+/* Scroll hint */
+.scroll-hint {
+    font-size:1.2rem;
+    color:#ffa500;
+    margin-top:20px;
+    animation: bounce 1s infinite alternate 1.5s;
+}
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-8px); }
 }
 
 /* Menu */
@@ -81,94 +130,89 @@ html, body {
     display:none;
     flex-direction:column;
     align-items:center;
-    justify-content:flex-start;
-    padding:20px;
+    justify-content:center; 
+    padding:15px;
     min-height:100vh;
     width:100%;
-    background: linear-gradient(180deg, #ff7f50, #ffcc00);
+    max-width:375px;
+    margin:0 auto;
+    background:#1a1a25;
+    box-sizing:border-box;
+    opacity:0;
+    transform: translateY(50px);
+    transition: 0.6s ease;
+}
+
+.menu.show {
+    opacity:1;
+    transform: translateY(0);
 }
 
 .menu a {
     display:block;
-    width:90%;
-    max-width:360px;
-    padding:18px;
-    margin:12px 0;
-    background:#6a0dad;
-    color:#fff;
+    width:100%;
+    padding:14px;
+    margin:10px 0;
+    background:#333;
+    color:#ffa500;
     text-align:center;
     font-weight:600;
-    font-size:1.2rem;
-    border-radius:15px;
+    font-size:1.15rem;
+    border-radius:12px;
     text-decoration:none;
-    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    box-shadow:0 5px 12px rgba(0,0,0,0.3);
     transition:0.3s;
 }
 
 .menu a:hover { 
-    background:#7f1eff; 
-    transform: translateY(-3px); 
-}
-
-/* Bounce menu animation */
-.menu.show a {
-    animation: bounceIn 0.5s forwards;
-}
-.menu.show a:nth-child(1){animation-delay:0.1s;}
-.menu.show a:nth-child(2){animation-delay:0.2s;}
-.menu.show a:nth-child(3){animation-delay:0.3s;}
-
-@keyframes bounceIn {
-    0% {opacity:0; transform: translateY(50px);}
-    60% {opacity:1; transform: translateY(-10px);}
-    80% {transform: translateY(5px);}
-    100% {transform: translateY(0);}
+    transform: translateY(-2px); 
+    background:#444;
 }
 
 /* About Section */
 .about {
     width:100%;
-    max-width:360px;
-    margin:30px auto 50px auto;
-    padding:20px;
-    background: rgba(0,0,0,0.25);
-    border-radius:15px;
+    max-width:335px;
+    margin:25px auto 40px auto;
+    padding:15px;
+    background: rgba(50,50,70,0.6);
+    border-radius:12px;
     text-align:center;
     display:flex;
     flex-direction:column;
-    align-items:center; /* Center content horizontally */
+    align-items:center;
+    gap:10px;
 }
-.about h2 { color:#ffdd99; margin-bottom:10px; font-size:1.3rem; }
-.about p { font-size:0.95rem; line-height:1.5; color:#fff; }
-.about a { color:#fff; text-decoration:none; }
+.about h2 { color:#ffa500; margin-bottom:8px; font-size:1.25rem; }
+.about p { font-size:0.9rem; line-height:1.4; color:#ddd; }
+.about a { color:#ffa500; text-decoration:none; }
 .about a:hover { text-decoration:underline; }
 
-/* Discord Button Center */
+/* Discord Button */
 .discord-btn {
-    margin-top:15px;
-    padding:12px 25px;
+    display:inline-block;
+    margin:10px auto 0 auto;
+    padding:10px 18px;
     background:#5865f2;
     color:#fff;
     font-weight:600;
-    border-radius:12px;
+    border-radius:10px;
     text-decoration:none;
-    font-size:1rem;
-    box-shadow:0 4px 12px rgba(0,0,0,0.3);
+    font-size:0.95rem;
     text-align:center;
-    transition:0.3s;
 }
-.discord-btn:hover { 
-    background:#4752c4; 
-    transform:translateY(-2px); 
-}
+.discord-btn:hover { background:#4752c4; transform:translateY(-2px); }
 
 /* Mobile adjustments */
-@media (max-width:480px){
-    .overlay h1 { font-size:1.3rem; }
-    .overlay p { font-size:0.95rem; }
-    .menu a { font-size:1.1rem; padding:16px; }
-    .about h2 { font-size:1.2rem; }
-    .about p { font-size:0.9rem; }
+@media (max-width:400px){
+    .overlay { max-width:100%; padding:12px; }
+    .menu { max-width:100%; padding:12px; }
+    .overlay h1 { font-size:1.25rem; }
+    .overlay p { font-size:0.9rem; }
+    .menu a { font-size:1.1rem; padding:12px; }
+    .about h2 { font-size:1.15rem; }
+    .about p { font-size:0.85rem; }
+    .discord-btn { font-size:0.9rem; padding:8px 16px; }
 }
 </style>
 </head>
@@ -177,10 +221,10 @@ html, body {
 <!-- Overlay -->
 <div class="overlay" id="overlay">
     <div class="content">
-        <!-- Direct image link -->
         <img src="https://i.imgur.com/5YYezT6.png" alt="Logo STM" class="logo">
         <h1>SELAMAT DATANG DI WORKSHOP SARJANA TEKNIK MEKANIK (STM)</h1>
-        <p>Workshop ini memiliki banyak cabang di kota dengan lokasi strategis dan mudah dijangkau. Workshop ini berdiri pada tanggal 16 September 2024.<br><br>Geser ke atas untuk membuka menu lamaran.</p>
+        <p>Workshop ini memiliki banyak cabang di kota dengan lokasi strategis dan mudah dijangkau. Workshop ini berdiri pada tanggal 16 September 2024.</p>
+        <div class="scroll-hint">⬆️ Geser ke atas untuk membuka menu</div>
     </div>
 </div>
 
@@ -193,7 +237,7 @@ html, body {
     <div class="about">
         <h2>Tentang STM Company</h2>
         <p>Workshop SARJANA TEKNIK MEKANIK (STM) memiliki banyak cabang di kota dengan lokasi strategis yang mudah dijangkau. Workshop ini berdiri pada tanggal 16 September 2024 dan dikenal karena pelayanan profesional serta fasilitas lengkap.</p>
-        <p>Selamat datang! Silahkan pilih menu lamaran sesuai posisi yang diinginkan.</p>
+        <p>Selamat datang! Silahkan pilih menu lamaran sesuai posisi yang Di Infokan Di Discord.</p>
         <a href="https://discord.gg/qGDyPDQaEm" target="_blank" class="discord-btn">Join Discord STM</a>
     </div>
 </div>
