@@ -1,190 +1,331 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Form Rekruitmen Mekanik STM</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Form Mekanik STM</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 body {
-    margin:0; padding:0;
-    font-family:'Poppins',sans-serif;
-    background:#121212;
-    display:flex; justify-content:center; align-items:center;
-    min-height:100vh;
-    color:#fff;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top, #0e0e12 0%, #1a1a22 100%);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
-/* Notifikasi Modern Klikable */
-#notification {
-    position: fixed;
-    top:20px;
-    left:50%;
-    transform: translateX(-50%) translateY(-120%);
-    background: #1e1e1e;
-    padding:12px 20px;
-    border-radius:12px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.6);
-    font-weight:600;
-    color:#ffa500;
-    z-index:9999;
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    opacity:0;
-    text-decoration:none;
-    cursor:pointer;
-    max-width:350px;
-    width:90%;
-    text-align:center;
+/* Wrapper untuk menjaga posisi tombol tetap di dalam */
+.form-wrapper {
+  width: 90%;
+  max-width: 375px;
+  position: relative;
+  display: flex;
+  justify-content: center;
 }
 
-#notification.show {
-    transform: translateX(-50%) translateY(0);
-    opacity:1;
-}
-
-/* Form container */
+/* Container utama */
 .form-container {
-    background:#1e1e1e;
-    padding:20px;
-    border-radius:15px;
-    max-width:400px;
-    width:90%;
-    box-shadow:0 5px 20px rgba(0,0,0,0.6);
-    text-align:center;
+  width: 100%;
+  background: rgba(25, 25, 35, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(255,165,0,0.25);
+  text-align: center;
+  padding: 20px 20px 30px;
+  box-sizing: border-box;
+  position: relative;
 }
 
-.form-container img.logo {
-    width:100px;
-    height:auto;
-    margin-bottom:15px;
-    border-radius:50%;
-    box-shadow:0 0 15px rgba(255,255,255,0.3);
+/* Tombol kembali — oval kecil presisi di dalam kotak */
+.back-button {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(255,165,0,0.15);
+  border: 1px solid rgba(255,165,0,0.3);
+  color: #ffa500;
+  border-radius: 25px;
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  max-width: calc(100% - 24px);
+  box-sizing: border-box;
+}
+.back-button:hover {
+  background: #ffa500;
+  color: #111;
+  transform: scale(1.05);
 }
 
-.form-container h2 {
-    margin-bottom:15px;
-    color:#ffa500;
+/* Foto profil */
+.profile-image {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ffa500;
+  box-shadow: 0 0 15px rgba(255,165,0,0.4);
+  margin-top: 45px;
 }
 
-.form-container form {
-    display:flex;
-    flex-direction:column;
-    gap:12px;
+/* Judul */
+h2 {
+  color: #ffa500;
+  margin: 15px 0 10px;
+  font-size: 1.4rem;
+  text-shadow: 0 0 8px rgba(255,165,0,0.4);
 }
 
-.form-container input, 
-.form-container textarea, 
-.form-container select {
-    padding:10px;
-    border-radius:8px;
-    border:1px solid #333;
-    background:#2c2c2c;
-    color:#fff;
-    font-size:1rem;
+/* Input */
+form {
+  text-align: left;
+  padding: 0 5px;
+}
+label {
+  display: block;
+  margin-top: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+input, textarea, select {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  margin-top: 6px;
+  background: #222;
+  color: #fff;
+  font-size: 0.9rem;
+  outline: none;
+  box-sizing: border-box;
+}
+input[type="file"] {
+  background: none;
+  border: 2px dashed #444;
+  padding: 15px;
+  cursor: pointer;
+  color: #aaa;
+}
+input[type="file"]:hover {
+  border-color: #ffa500;
+  color: #fff;
 }
 
-.form-container input[type="number"] {
-    -moz-appearance:textfield;
+/* Tombol kirim */
+button[type="submit"] {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background: #ffa500;
+  color: #000;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button[type="submit"]:hover {
+  background: #ffb733;
+  transform: translateY(-2px);
 }
 
-.form-container input[type="file"] {
-    padding:5px;
-    background:#2c2c2c;
+/* Notifikasi */
+.notification {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(30, 30, 40, 0.96);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255,165,0,0.3);
+  display: none;
+  z-index: 1000;
+  text-align: center;
+  width: calc(100% - 40px);
+  max-width: 350px;
+}
+.notification a {
+  color: #ffa500;
+  font-weight: 600;
+  text-decoration: none;
 }
 
-.form-container textarea {
-    resize:vertical;
-    color:#fff;
+/* Popup konfirmasi */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
 }
-
-.form-container button {
-    margin-top:10px;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    background:#ffa500;
-    color:#121212;
-    font-weight:600;
-    cursor:pointer;
-    transition:0.3s;
+.confirm-box {
+  background: rgba(25,25,40,0.95);
+  border: 1px solid rgba(255,165,0,0.4);
+  border-radius: 16px;
+  padding: 20px;
+  width: 90%;
+  max-width: 320px;
+  text-align: center;
 }
-
-.form-container button:hover {
-    background:#ffb732;
+.confirm-box h3 { color: #ffa500; margin-bottom: 10px; }
+.confirm-box p { color: #ccc; font-size: 0.9rem; margin-bottom: 18px; }
+.confirm-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
+.confirm-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+}
+.confirm-btn.yes { background: #ffa500; color: #000; }
+.confirm-btn.no { background: #333; color: #fff; }
+.confirm-btn:hover { transform: scale(1.05); }
 </style>
 </head>
 <body>
 
-<a id="notification" target="_blank"></a>
+<div class="form-wrapper">
+  <div class="form-container">
+    <button type="button" class="back-button" id="backBtn">← <span>Kembali</span></button>
 
-<div class="form-container">
-    <img src="https://i.imgur.com/5YYezT6.png" alt="Logo STM" class="logo">
-    <h2>🛠️ Form Rekruitmen Mekanik STM 🛠️</h2>
+    <img class="profile-image" src="https://i.imgur.com/5YYezT6.png" alt="STM Profile"
+      onerror="this.onerror=null;this.src='https://i.imgur.com/tzKZ6Zb.jpeg';">
+
+    <h2>⚙️ Form Rekruitmen Mekanik</h2>
+
     <form id="mekanikForm">
-        <input type="text" name="nama_ic" placeholder="👤 NAMA IC" required>
-        <input type="text" name="nama_discord" placeholder="💬 NAMA DISCORD" required>
-        <input type="number" name="level_ic" placeholder="🎚️ LEVEL IC" required>
-        <input type="number" name="v" placeholder="🚀 INGIN BERGABUNG KE V?" required>
-        <textarea name="alasan" placeholder="📝 ALASAN BERGABUNG KE STM" required></textarea>
-        <input type="file" name="ss_stats" accept="image/*" required>
-        <textarea name="note" placeholder="🛑 NOTE" readonly>Catatan:Jika Di workhsop Tersebut Selanjutnya Lakukan Interview</textarea>
-        <button type="submit">📨 Kirim Lamaran</button>
+      <label>Nama Lengkap</label>
+      <input type="text" name="nama" required>
+
+      <label>Umur</label>
+      <input type="number" name="umur" required>
+
+      <label>IC Level</label>
+      <input type="number" name="ic" required>
+
+      <label>Ingin Bergabung V?</label>
+      <input type="text" name="v" placeholder="Contoh: V1 / V2 / V3" required>
+
+      <label>Alasan Melamar</label>
+      <textarea name="alasan" rows="3" required></textarea>
+
+      <label>Username Discord</label>
+      <input type="text" name="username" placeholder="@YourName" required>
+
+      <label>Pilih Tag Tujuan</label>
+      <select name="tagTujuan" required>
+        <option value="">-- Pilih --</option>
+        <option value="manager">👑 Manager</option>
+        <option value="asisten">🧰 Asisten Manager</option>
+      </select>
+
+      <label>Upload Screenshot Stats / Tab</label>
+      <input type="file" name="screenshot" accept="image/*" required>
+
+      <button type="submit">Kirim Lamaran</button>
     </form>
+  </div>
+</div>
+
+<!-- Notifikasi -->
+<div id="notification" class="notification">
+  🚀 Lamaran kamu berhasil dikirim!  
+  <a href="https://discord.com/channels/1093708924391264327/1365555467971072000" target="_blank">Lihat di Discord</a>
+</div>
+
+<!-- Popup konfirmasi -->
+<div id="confirmOverlay" class="confirm-overlay">
+  <div class="confirm-box">
+    <h3>⚠️ Konfirmasi</h3>
+    <p>Apakah kamu yakin ingin kembali? Data akan hilang.</p>
+    <div class="confirm-actions">
+      <button class="confirm-btn yes" id="confirmYes">Ya</button>
+      <button class="confirm-btn no" id="confirmNo">Batal</button>
+    </div>
+  </div>
 </div>
 
 <script>
-const form = document.getElementById('mekanikForm');
-const notification = document.getElementById('notification');
-const webhookURL = 'https://discord.com/api/webhooks/1435819630773014688/Hv7X5V8AZaw3hHwer4c-oXJ3h6ntBzpzbK_pcI1OGGbNi_-_k30YgCPClhjRJYb_9SB5';
-const announcementChannel = 'https://discord.com/channels/1093708924391264327/1365559689273937950';
+const form = document.getElementById("mekanikForm");
+const notif = document.getElementById("notification");
+const backBtn = document.getElementById("backBtn");
+const confirmOverlay = document.getElementById("confirmOverlay");
+const confirmYes = document.getElementById("confirmYes");
+const confirmNo = document.getElementById("confirmNo");
 
-function showNotification(message, success=true){
-    notification.textContent = message;
-    notification.href = announcementChannel;
-    notification.style.background = success ? '#1e1e1e' : '#440000';
-    notification.style.color = success ? '#ffa500' : '#ff6666';
-    notification.classList.add('show');
-    setTimeout(()=>notification.classList.remove('show'), 6000);
-}
+const WEBHOOK_URL = "https://discord.com/api/webhooks/1435855105047134300/MtZXH1EqoFLy1XRkh-n5DLgSR-TfhSSaalkB2LjFos9rWnkygfimDHNKRd733-n6pE6M";
+const ROLE_MANAGER = "1285900000000000000";
+const ROLE_ASISTEN = "1285901111111111111";
 
-form.addEventListener('submit', async e => {
-    e.preventDefault();
-    const data = new FormData(form);
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData.entries());
+  const file = formData.get("screenshot");
 
-    // Embed Discord dengan emoji
-    const embed = {
-        title: "🛠️ Lamaran Mekanik STM",
-        color: 16753920,
-        fields: [
-            { name: "👤 NAMA IC", value: data.get('nama_ic'), inline: true },
-            { name: "💬 NAMA DISCORD", value: data.get('nama_discord'), inline: true },
-            { name: "🎚️ LEVEL IC", value: data.get('level_ic'), inline: true },
-            { name: "🚀 V", value: data.get('v'), inline: true },
-            { name: "📝 ALASAN", value: data.get('alasan') }
-        ],
-        timestamp: new Date().toISOString()
-    };
+  const mentionRole = data.tagTujuan === "manager" ? `<@&${ROLE_MANAGER}>` : `<@&${ROLE_ASISTEN}>`;
+  const mentionUser = data.username;
 
-    const file = data.get('ss_stats');
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('payload_json', JSON.stringify({embeds:[embed]}));
+  const embed = {
+    title: "🔧 Lamaran Baru - Mekanik",
+    color: 0xffa500,
+    fields: [
+      { name: "👤 Nama", value: data.nama },
+      { name: "🎂 Umur", value: data.umur, inline: true },
+      { name: "🏆 IC Level", value: data.ic, inline: true },
+      { name: "⚙️ Ingin Bergabung V?", value: data.v, inline: true },
+      { name: "📝 Alasan", value: data.alasan },
+      { name: "💬 Username Discord", value: data.username }
+    ],
+    footer: { text: "STM Company Recruitment" },
+    timestamp: new Date(),
+  };
 
-    try {
-        const res = await fetch(webhookURL, {method:'POST', body:formData});
-        if(res.ok){
-            showNotification('✅ Lamaran terkirim! Klik untuk ke Channel Announcement.', true);
-            form.reset();
-        } else {
-            showNotification('❌ Gagal mengirim lamaran, coba lagi.', false);
-        }
-    } catch(err){
-        showNotification('⚠️ Terjadi error: ' + err.message, false);
-    }
+  const payload = new FormData();
+  payload.append(
+    "payload_json",
+    JSON.stringify({
+      content: `📩 Lamaran baru dari **${mentionUser}**! ${mentionRole} silakan review lamaran ini.`,
+      embeds: [embed],
+    })
+  );
+
+  if (file && file.size > 0) payload.append("file", file, file.name);
+
+  await fetch(WEBHOOK_URL, { method: "POST", body: payload });
+
+  form.reset();
+  notif.style.display = "block";
+  setTimeout(() => (notif.style.display = "none"), 6000);
+});
+
+backBtn.addEventListener("click", () => {
+  confirmOverlay.style.display = "flex";
+});
+confirmYes.addEventListener("click", () => {
+  window.location.href = "index.html";
+});
+confirmNo.addEventListener("click", () => {
+  confirmOverlay.style.display = "none";
 });
 </script>
-
 </body>
 </html>
