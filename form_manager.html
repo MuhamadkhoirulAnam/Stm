@@ -3,106 +3,187 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Form Lamaran Manager STM</title>
+<title>Form Rekruitmen Manager STM</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
-body {margin:0;padding:0;font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:#fff;}
-.container {max-width:600px;margin:50px auto;background: rgba(255,255,255,0.05);padding:30px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,0.4);}
-header {text-align:center;margin-bottom:20px;}
-header img.logo {width:120px;height:120px;margin-bottom:15px;border-radius:50%;box-shadow:0 0 15px rgba(255,206,0,0.5);}
-h2 {text-align:center;color:#ffce00;margin-bottom:20px;}
-form label {display:block;margin-top:15px;font-weight:600;}
-form input,form textarea {width:100%;padding:10px;margin-top:5px;border-radius:10px;border:none;background: rgba(255,255,255,0.1);color:#fff;font-size:1rem;}
-form textarea[readonly] {background: rgba(255,255,255,0.05);color:#ccc;}
-form button {margin-top:20px;width:100%;padding:12px;font-size:1rem;font-weight:600;color:#000;background:#ffce00;border:none;border-radius:10px;cursor:pointer;transition:0.3s;}
-form button:hover {background:#e6b800;}
-#notification {position: fixed;top: 20px;right: 20px;background: #ffce00;color: #000;padding: 15px 25px;border-radius: 10px;font-weight: 600;box-shadow: 0 5px 15px rgba(0,0,0,0.3);opacity: 0;pointer-events: none;transform: translateY(-20px);transition: all 0.4s ease;z-index: 9999;}
-#notification.show {opacity: 1;pointer-events: auto;transform: translateY(0);}
-#notification a { color: #000; font-weight:bold; text-decoration:underline; }
+body {
+    margin:0; padding:0;
+    font-family:'Poppins',sans-serif;
+    background:#121212;
+    display:flex; justify-content:center; align-items:center;
+    min-height:100vh;
+    color:#fff;
+}
+
+/* Notifikasi Modern Klikable */
+#notification {
+    position: fixed;
+    top:20px;
+    left:50%;
+    transform: translateX(-50%) translateY(-120%);
+    background: #1e1e1e;
+    padding:12px 20px;
+    border-radius:12px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.6);
+    font-weight:600;
+    color:#ffa500;
+    z-index:9999;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    opacity:0;
+    text-decoration:none;
+    cursor:pointer;
+    max-width:350px;
+    width:90%;
+    text-align:center;
+}
+
+#notification.show {
+    transform: translateX(-50%) translateY(0);
+    opacity:1;
+}
+
+/* Form container */
+.form-container {
+    background:#1e1e1e;
+    padding:20px;
+    border-radius:15px;
+    max-width:400px;
+    width:90%;
+    box-shadow:0 5px 20px rgba(0,0,0,0.6);
+    text-align:center;
+}
+
+.form-container img.logo {
+    width:100px;
+    height:auto;
+    margin-bottom:15px;
+    border-radius:50%;
+    box-shadow:0 0 15px rgba(255,255,255,0.3);
+}
+
+.form-container h2 {
+    margin-bottom:15px;
+    color:#ffa500;
+}
+
+.form-container form {
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.form-container input, 
+.form-container textarea, 
+.form-container select {
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #333;
+    background:#2c2c2c;
+    color:#fff;
+    font-size:1rem;
+}
+
+.form-container input[type="number"] {
+    -moz-appearance:textfield;
+}
+
+.form-container input[type="file"] {
+    padding:5px;
+    background:#2c2c2c;
+}
+
+.form-container textarea {
+    resize:vertical;
+    color:#fff;
+}
+
+.form-container button {
+    margin-top:10px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#ffa500;
+    color:#121212;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.form-container button:hover {
+    background:#ffb732;
+}
 </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <img src="https://i.imgur.com/abc123.png" alt="Logo STM" class="logo">
-    </header>
+<a id="notification" target="_blank"></a>
 
-    <h2>Form Lamaran Manager STM</h2>
-    <form id="lamaranForm">
-        <label for="namaIC">NAMA IC:</label>
-        <input type="text" id="namaIC" name="namaIC" required>
-
-        <label for="levelIC">LEVEL IC:</label>
-        <input type="number" id="levelIC" name="levelIC" min="0" required>
-
-        <label for="bergabungV">INGIN BERGABUNG KE V?</label>
-        <input type="number" id="bergabungV" name="bergabungV" min="0" placeholder="Masukkan angka" required>
-
-        <label for="alasan">ALASAN BERGABUNG:</label>
-        <textarea id="alasan" name="alasan" rows="3" required></textarea>
-
-        <label for="visi">Visi:</label>
-        <textarea id="visi" name="visi" rows="2" required></textarea>
-
-        <label for="misi">Misi:</label>
-        <textarea id="misi" name="misi" rows="2" required></textarea>
-
-        <label for="ssStats">SERTAKAN SS STATS/TAB:</label>
-        <input type="file" id="ssStats" name="ssStats" accept="image/*" required>
-
-        <label for="note">NOTE:</label>
-        <textarea id="note" rows="3" readonly>Jika sudah di accept oleh Owner Workshop, silahkan melakukan tahap interview.</textarea>
-
-        <button type="submit">Kirim Lamaran</button>
+<div class="form-container">
+    <img src="https://i.imgur.com/5YYezT6.png" alt="Logo STM" class="logo">
+    <h2>🧑‍💼 Form Rekruitmen Manager STM 🧑‍💼</h2>
+    <form id="managerForm">
+        <input type="text" name="nama_ic" placeholder="👤 NAMA IC" required>
+        <input type="number" name="level_ic" placeholder="🎚️ LEVEL IC" required>
+        <input type="number" name="v" placeholder="🚀 INGIN BERGABUNG KE V?" required>
+        <textarea name="alasan" placeholder="📝 ALASAN BERGABUNG" required></textarea>
+        <textarea name="visi" placeholder="🌟 VISI" required></textarea>
+        <textarea name="misi" placeholder="🎯 MISI" required></textarea>
+        <input type="file" name="ss_stats" accept="image/*" required>
+        <textarea name="note" placeholder="🛑 NOTE" readonly>Jika diterima oleh Owner Workshop, lakukan tahap interview</textarea>
+        <button type="submit">📨 Kirim Lamaran</button>
     </form>
 </div>
 
-<div id="notification">Lamaran kamu sudah terkirim! Silahkan cek <a href="https://discord.com/channels/1093708924391264327/1365559689273937950" target="_blank">Channel Announcement Rekruitmen</a> untuk info selanjutnya.</div>
-
 <script>
-const webhookURL = "https://discord.com/api/webhooks/1435819630773014688/Hv7X5V8AZaw3hHwer4c-oXJ3h6ntBzpzbK_pcI1OGGbNi_-_k30YgCPClhjRJYb_9SB5";
-const form = document.getElementById('lamaranForm');
+const form = document.getElementById('managerForm');
 const notification = document.getElementById('notification');
+const webhookURL = 'https://discord.com/api/webhooks/1435819630773014688/Hv7X5V8AZaw3hHwer4c-oXJ3h6ntBzpzbK_pcI1OGGbNi_-_k30YgCPClhjRJYb_9SB5';
+const announcementChannel = 'https://discord.com/channels/1093708924391264327/1365559689273937950';
 
-form.addEventListener('submit', async (e) => {
+function showNotification(message, success=true){
+    notification.textContent = message;
+    notification.href = announcementChannel;
+    notification.style.background = success ? '#1e1e1e' : '#440000';
+    notification.style.color = success ? '#ffa500' : '#ff6666';
+    notification.classList.add('show');
+    setTimeout(()=>notification.classList.remove('show'), 6000);
+}
+
+form.addEventListener('submit', async e => {
     e.preventDefault();
-    const formData = new FormData(form);
-    const namaIC = formData.get('namaIC');
-    const levelIC = formData.get('levelIC');
-    const bergabungV = formData.get('bergabungV');
-    const alasan = formData.get('alasan');
-    const visi = formData.get('visi');
-    const misi = formData.get('misi');
-    const fileInput = formData.get('ssStats');
+    const data = new FormData(form);
 
-    const embedPayload = {
-        embeds: [{
-            title: "Lamaran Manager STM",
-            color: 16763904,
-            fields: [
-                { name: "NAMA IC", value: namaIC, inline: true },
-                { name: "LEVEL IC", value: levelIC.toString(), inline: true },
-                { name: "INGIN BERGABUNG KE V?", value: bergabungV.toString(), inline: true },
-                { name: "ALASAN BERGABUNG", value: alasan, inline: false },
-                { name: "Visi", value: visi, inline: false },
-                { name: "Misi", value: misi, inline: false }
-            ],
-            timestamp: new Date(),
-            footer: { text: "STM Company" }
-        }]
+    const embed = {
+        title: "🧑‍💼 Lamaran Manager STM",
+        color: 16753920,
+        fields: [
+            { name: "👤 NAMA IC", value: data.get('nama_ic'), inline: true },
+            { name: "🎚️ LEVEL IC", value: data.get('level_ic'), inline: true },
+            { name: "🚀 V", value: data.get('v'), inline: true },
+            { name: "📝 ALASAN", value: data.get('alasan') },
+            { name: "🌟 VISI", value: data.get('visi') },
+            { name: "🎯 MISI", value: data.get('misi') }
+        ],
+        timestamp: new Date().toISOString()
     };
 
-    const data = new FormData();
-    data.append('file', fileInput);
-    data.append('payload_json', JSON.stringify(embedPayload));
+    const file = data.get('ss_stats');
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('payload_json', JSON.stringify({embeds:[embed]}));
 
-    await fetch(webhookURL, { method: "POST", body: data });
-
-    notification.classList.add('show');
-    setTimeout(() => notification.classList.remove('show'), 5000);
-    form.reset();
+    try {
+        const res = await fetch(webhookURL, {method:'POST', body:formData});
+        if(res.ok){
+            showNotification('✅ Lamaran terkirim! Klik untuk ke Channel Announcement.', true);
+            form.reset();
+        } else {
+            showNotification('❌ Gagal mengirim lamaran, coba lagi.', false);
+        }
+    } catch(err){
+        showNotification('⚠️ Terjadi error: ' + err.message, false);
+    }
 });
 </script>
 
