@@ -7,125 +7,223 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
-body, html {
-    margin:0;
-    padding:0;
-    font-family:'Poppins', sans-serif;
-    height:100%;
-    overflow:hidden;
-    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+/* Reset & Body */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+    margin:0; padding:0;
+    width:100%; min-height:100%;
+    font-family:'Poppins',sans-serif;
+    overflow-x:hidden;
+    background: linear-gradient(135deg, #6a0dad, #ff7f50, #ffcc00);
+    background-size: 300% 300%;
+    animation: gradientBG 20s ease infinite;
     color:#fff;
 }
 
+/* Animate gradient background */
+@keyframes gradientBG {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+}
+
+/* Overlay */
 .overlay {
     position: fixed;
     top:0; left:0;
-    width:100%;
-    height:100%;
+    width:100%; height:100%;
     background: rgba(0,0,0,0.85);
     display:flex;
     flex-direction:column;
-    align-items:center;
     justify-content:center;
-    transition: transform 0.8s ease;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+    overflow-y:auto;
+    transition: transform 0.6s ease, opacity 0.6s ease;
     z-index: 1000;
 }
 
 .overlay.hidden {
-    transform: translateY(-100%);
+    transform: translateY(-120%);
+    opacity:0;
+}
+
+.overlay .content {
+    max-width:360px;
+    width:100%;
+    text-align:center;
 }
 
 .overlay img.logo {
-    width:150px;
-    height:150px;
-    border-radius:50%;
-    box-shadow:0 0 20px rgba(255,206,0,0.6);
+    width:120px;
+    max-width:80%;
+    height:auto;
     margin-bottom:20px;
+    border-radius:50%;
+    box-shadow:0 0 20px rgba(255,255,255,0.8);
 }
 
 .overlay h1 {
-    font-size:2rem;
-    text-align:center;
-    color:#ffce00;
+    font-size:1.5rem;
+    color:#ffdd99;
     margin-bottom:10px;
-    max-width: 90%;
 }
 
 .overlay p {
-    text-align:center;
-    max-width: 600px;
-    color:#fff;
+    font-size:1rem;
     line-height:1.5;
 }
 
+/* Menu */
 .menu {
     display:none;
     flex-direction:column;
     align-items:center;
-    justify-content:center;
-    height:100%;
+    justify-content:flex-start;
     padding:20px;
+    min-height:100vh;
+    width:100%;
+    background: linear-gradient(180deg, #ff7f50, #ffcc00);
 }
 
 .menu a {
     display:block;
-    width:300px;
+    width:90%;
+    max-width:360px;
+    padding:18px;
+    margin:12px 0;
+    background:#6a0dad;
+    color:#fff;
     text-align:center;
-    padding:15px;
-    margin:10px 0;
-    background:#ffce00;
-    color:#000;
-    text-decoration:none;
     font-weight:600;
-    border-radius:12px;
+    font-size:1.2rem;
+    border-radius:15px;
+    text-decoration:none;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
     transition:0.3s;
 }
-.menu a:hover {
-    background:#e6b800;
-    color:#000;
+
+.menu a:hover { 
+    background:#7f1eff; 
+    transform: translateY(-3px); 
+}
+
+/* Bounce menu animation */
+.menu.show a {
+    animation: bounceIn 0.5s forwards;
+}
+.menu.show a:nth-child(1){animation-delay:0.1s;}
+.menu.show a:nth-child(2){animation-delay:0.2s;}
+.menu.show a:nth-child(3){animation-delay:0.3s;}
+
+@keyframes bounceIn {
+    0% {opacity:0; transform: translateY(50px);}
+    60% {opacity:1; transform: translateY(-10px);}
+    80% {transform: translateY(5px);}
+    100% {transform: translateY(0);}
+}
+
+/* About Section */
+.about {
+    width:100%;
+    max-width:360px;
+    margin:30px auto 50px auto;
+    padding:20px;
+    background: rgba(0,0,0,0.25);
+    border-radius:15px;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center; /* Center content horizontally */
+}
+.about h2 { color:#ffdd99; margin-bottom:10px; font-size:1.3rem; }
+.about p { font-size:0.95rem; line-height:1.5; color:#fff; }
+.about a { color:#fff; text-decoration:none; }
+.about a:hover { text-decoration:underline; }
+
+/* Discord Button Center */
+.discord-btn {
+    margin-top:15px;
+    padding:12px 25px;
+    background:#5865f2;
+    color:#fff;
+    font-weight:600;
+    border-radius:12px;
+    text-decoration:none;
+    font-size:1rem;
+    box-shadow:0 4px 12px rgba(0,0,0,0.3);
+    text-align:center;
+    transition:0.3s;
+}
+.discord-btn:hover { 
+    background:#4752c4; 
+    transform:translateY(-2px); 
+}
+
+/* Mobile adjustments */
+@media (max-width:480px){
+    .overlay h1 { font-size:1.3rem; }
+    .overlay p { font-size:0.95rem; }
+    .menu a { font-size:1.1rem; padding:16px; }
+    .about h2 { font-size:1.2rem; }
+    .about p { font-size:0.9rem; }
 }
 </style>
 </head>
 <body>
 
+<!-- Overlay -->
 <div class="overlay" id="overlay">
-    <img src="https://i.imgur.com/abc123.png" alt="Logo STM" class="logo">
-    <h1>SELAMAT DATANG DI WORKSHOP SARJANA TEKNIK MEKANIK (STM)</h1>
-    <p>Workshop ini memiliki banyak cabang di kota dengan lokasi yang strategis dan mudah dijangkau. Workshop ini berdiri pada tanggal 16 September 2024.<br><br>Geser ke atas untuk membuka menu lamaran.</p>
+    <div class="content">
+        <img src="https://i.imgur.com/eyQVYd1.png" alt="Logo STM" class="logo">
+        <h1>SELAMAT DATANG DI WORKSHOP SARJANA TEKNIK MEKANIK (STM)</h1>
+        <p>Workshop ini memiliki banyak cabang di kota dengan lokasi strategis dan mudah dijangkau. Workshop ini berdiri pada tanggal 16 September 2024.<br><br>Geser ke atas untuk membuka menu lamaran.</p>
+    </div>
 </div>
 
+<!-- Menu Lamaran -->
 <div class="menu" id="menu">
     <a href="form_mekanik.html">REKRUITMEN MEKANIK</a>
     <a href="form_manager.html">REKRUITMEN MANAGER</a>
     <a href="form_asisten_manager.html">REKRUITMEN ASISTEN MANAGER</a>
+
+    <div class="about">
+        <h2>Tentang STM Company</h2>
+        <p>Workshop SARJANA TEKNIK MEKANIK (STM) memiliki banyak cabang di kota dengan lokasi strategis yang mudah dijangkau. Workshop ini berdiri pada tanggal 16 September 2024 dan dikenal karena pelayanan profesional serta fasilitas lengkap.</p>
+        <p>Selamat datang! Silahkan pilih menu lamaran sesuai posisi yang diinginkan.</p>
+        <a href="https://discord.gg/qGDyPDQaEm" target="_blank" class="discord-btn">Join Discord STM</a>
+    </div>
 </div>
 
 <script>
-// Geser overlay ke atas
-let overlay = document.getElementById('overlay');
-let menu = document.getElementById('menu');
+const overlay = document.getElementById('overlay');
+const menu = document.getElementById('menu');
+let startY = 0, isDragging = false;
 
-let startY = 0;
-let isDragging = false;
+function showMenu() {
+    overlay.classList.add('hidden');
+    setTimeout(()=>{
+        overlay.style.display='none';
+        menu.style.display='flex';
+        menu.classList.add('show');
+    },600);
+}
 
+// Touch events
 overlay.addEventListener('touchstart', e => { startY = e.touches[0].clientY; });
 overlay.addEventListener('touchmove', e => { 
     let diff = startY - e.touches[0].clientY;
-    if(diff > 50) { // geser ke atas minimal 50px
-        overlay.classList.add('hidden');
-        menu.style.display = 'flex';
-    }
+    if(diff > 50) showMenu();
 });
 
-// Untuk desktop (drag mouse)
+// Mouse events for desktop
 overlay.addEventListener('mousedown', e => { startY = e.clientY; isDragging=true; });
 overlay.addEventListener('mouseup', e => {
-    if(isDragging) {
+    if(isDragging){
         let diff = startY - e.clientY;
-        if(diff > 50) {
-            overlay.classList.add('hidden');
-            menu.style.display = 'flex';
-        }
+        if(diff > 50) showMenu();
         isDragging=false;
     }
 });
