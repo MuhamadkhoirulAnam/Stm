@@ -2,250 +2,132 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="https://imgur.com/a/eyQVYd1=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>STM Company</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
-body, html {<
+body, html {
     margin:0;
     padding:0;
     font-family:'Poppins', sans-serif;
-    min-height:100vh;
-    overflow-x:hidden;
-    position:relative;
-}
-
-/* Parallax background */
-body::before {
-    content:"";
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:200%;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    z-index:-1;
-    transform: translateZ(0);
-    will-change: transform;
-}
-
-/* Header */
-header {
-    text-align:center;
-    padding:100px 20px 50px 20px; /* lebih bawah agar animasi terlihat */
-}
-
-header img.logo {
-    width:120px;
-    height:120px;
-    margin-bottom:20px;
-    border-radius:50%;
-    transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 0 15px rgba(255,206,0,0.5);
-}
-header img.logo:hover {
-    transform: scale(1.15);
-    box-shadow: 0 0 30px rgba(255,206,0,0.8);
-}
-
-header h1 {
-    font-size:2rem;
-    color:#ffce00;
-    margin-bottom:10px;
-}
-
-header p {
-    font-size:1rem;
-    max-width:600px;
-    margin:0 auto;
-    line-height:1.5;
-    color: #ddd;
-}
-
-/* Menu */
-.menu-container {
-    display:flex;
-    flex-direction: column;
-    align-items:center;
-    margin-top:60px;
-}
-
-.menu-item {
-    width:90%;
-    max-width:400px;
-    background: rgba(255,255,255,0.05);
-    padding:18px;
-    border-radius:15px;
-    text-align:center;
-    font-size:1.2rem;
-    font-weight:600;
-    cursor:pointer;
-    box-shadow:0 5px 20px rgba(0,0,0,0.4);
-    transition: transform 0.3s, background 0.3s, opacity 0.5s, transform 0.5s;
-    text-decoration:none;
+    height:100%;
+    overflow:hidden;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
     color:#fff;
-    margin:15px 0;
-
-    opacity:0;
-    transform: translateY(50px);
-}
-.menu-item.show {
-    opacity:1;
-    transform: translateY(0);
 }
 
-/* About section */
-#about {
-    max-width:600px;
-    margin:60px auto 100px auto; /* cukup bawah untuk animasi terlihat */
-    background: rgba(255,255,255,0.05);
-    padding:25px;
-    border-radius:15px;
-    text-align:center;
-    box-shadow:0 5px 20px rgba(0,0,0,0.4);
-
-    opacity:0;
-    transform: translateY(50px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-#about.show {
-    opacity:1;
-    transform: translateY(0);
-}
-
-#about h3 {
-    color:#ffce00;
-    margin-bottom:12px;
-    font-size:1.5rem;
-}
-
-#about p {
-    color:#ddd;
-    line-height:1.5;
-    font-size:0.95rem;
-}
-
-#about a {
-    display:inline-block;
-    margin-top:12px;
-    text-decoration:none;
-    color:#ffce00;
-    font-weight:bold;
-    padding:8px 18px;
-    border-radius:10px;
-    background: rgba(255,255,255,0.05);
-    transition:0.3s;
-}
-#about a:hover {
-    color:#000;
-    background:#ffce00;
-}
-
-/* Overlay animasi saat klik */
 .overlay {
-    position:fixed;
-    top:0;
-    left:0;
+    position: fixed;
+    top:0; left:0;
     width:100%;
     height:100%;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.85);
     display:flex;
-    justify-content:center;
+    flex-direction:column;
     align-items:center;
-    color:#ffce00;
+    justify-content:center;
+    transition: transform 0.8s ease;
+    z-index: 1000;
+}
+
+.overlay.hidden {
+    transform: translateY(-100%);
+}
+
+.overlay img.logo {
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    box-shadow:0 0 20px rgba(255,206,0,0.6);
+    margin-bottom:20px;
+}
+
+.overlay h1 {
     font-size:2rem;
-    z-index:1000;
-    opacity:0;
-    pointer-events:none;
-    transition: opacity 0.5s ease;
-}
-.overlay.show {
-    opacity:1;
-    pointer-events:auto;
+    text-align:center;
+    color:#ffce00;
+    margin-bottom:10px;
+    max-width: 90%;
 }
 
-/* Responsive */
-@media (max-width:768px) {
-    header h1 { font-size:1.7rem; }
-    header p { font-size:0.9rem; }
-    .menu-item { font-size:1rem; padding:15px; }
-    #about h3 { font-size:1.3rem; }
-    #about p { font-size:0.9rem; }
-    #about a { padding:7px 15px; font-size:0.9rem; }
+.overlay p {
+    text-align:center;
+    max-width: 600px;
+    color:#fff;
+    line-height:1.5;
 }
 
-@media (max-width:480px) {
-    header h1 { font-size:1.5rem; }
-    header p { font-size:0.85rem; }
-    .menu-item { font-size:0.95rem; padding:12px; }
-    #about h3 { font-size:1.2rem; }
-    #about p { font-size:0.85rem; }
-    #about a { padding:6px 12px; font-size:0.85rem; }
+.menu {
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    height:100%;
+    padding:20px;
+}
+
+.menu a {
+    display:block;
+    width:300px;
+    text-align:center;
+    padding:15px;
+    margin:10px 0;
+    background:#ffce00;
+    color:#000;
+    text-decoration:none;
+    font-weight:600;
+    border-radius:12px;
+    transition:0.3s;
+}
+.menu a:hover {
+    background:#e6b800;
+    color:#000;
 }
 </style>
 </head>
 <body>
 
-<header>
-    <img src="https://imgur.com/a/eyQVYd1" alt="Logo STM" class="logo">
+<div class="overlay" id="overlay">
+    <img src="https://i.imgur.com/abc123.png" alt="Logo STM" class="logo">
     <h1>SELAMAT DATANG DI WORKSHOP SARJANA TEKNIK MEKANIK (STM)</h1>
-    <p>Workshop ini memiliki banyak cabang di kota dengan lokasi yang strategis dan mudah dijangkau oleh warga kota relatif. Workshop ini berdiri pada tanggal 16 September 2024.</p>
-</header>
-
-<div class="menu-container">
-    <a href="form_mekanik.html" target="_blank" class="menu-item">REKRUITMEN MEKANIK</a>
-    <a href="form_manager.html" target="_blank" class="menu-item">REKRUITMEN MANAGER</a>
-    <a href="form_asisten.html" target="_blank" class="menu-item">REKRUITMEN ASISTEN MANAGER</a>
+    <p>Workshop ini memiliki banyak cabang di kota dengan lokasi yang strategis dan mudah dijangkau. Workshop ini berdiri pada tanggal 16 September 2024.<br><br>Geser ke atas untuk membuka menu lamaran.</p>
 </div>
 
-<div id="about">
-    <h3>Tentang STM</h3>
-    <p>STM adalah workshop yang memiliki banyak cabang dengan lokasi strategis dan mudah dijangkau. Fokus kami adalah memberikan layanan mekanik terbaik dan pengalaman bekerja yang profesional bagi setiap anggota tim.</p>
-    <a href="https://discord.gg/qGDyPDQaEm" target="_blank">Join Discord STM</a>
+<div class="menu" id="menu">
+    <a href="form_mekanik.html">REKRUITMEN MEKANIK</a>
+    <a href="form_manager.html">REKRUITMEN MANAGER</a>
+    <a href="form_asisten_manager.html">REKRUITMEN ASISTEN MANAGER</a>
 </div>
-
-<div class="overlay" id="overlay">Membuka Form...</div>
 
 <script>
-// Overlay klik menu
-const menuItems = document.querySelectorAll('.menu-item');
-const overlay = document.getElementById('overlay');
+// Geser overlay ke atas
+let overlay = document.getElementById('overlay');
+let menu = document.getElementById('menu');
 
-menuItems.forEach(item => {
-    item.addEventListener('click', e => {
-        e.preventDefault();
-        const url = item.getAttribute('href');
-        overlay.classList.add('show');
-        setTimeout(() => {
-            window.open(url, '_blank');
-            overlay.classList.remove('show');
-        }, 1000);
-    });
+let startY = 0;
+let isDragging = false;
+
+overlay.addEventListener('touchstart', e => { startY = e.touches[0].clientY; });
+overlay.addEventListener('touchmove', e => { 
+    let diff = startY - e.touches[0].clientY;
+    if(diff > 50) { // geser ke atas minimal 50px
+        overlay.classList.add('hidden');
+        menu.style.display = 'flex';
+    }
 });
 
-// Scroll animation
-function scrollAnimate() {
-    const menu = document.querySelectorAll('.menu-item');
-    const about = document.getElementById('about');
-    const triggerBottom = window.innerHeight * 0.85;
-
-    menu.forEach(item => {
-        const itemTop = item.getBoundingClientRect().top;
-        if(itemTop < triggerBottom) item.classList.add('show');
-    });
-
-    const aboutTop = about.getBoundingClientRect().top;
-    if(aboutTop < triggerBottom) about.classList.add('show');
-}
-window.addEventListener('scroll', scrollAnimate);
-window.addEventListener('load', scrollAnimate);
-
-// Parallax background halus untuk desktop & mobile
-window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    const bgShift = scrolled * 0.35; // terlihat lebih jelas
-    document.body.style.backgroundPosition = `center ${bgShift}px`;
+// Untuk desktop (drag mouse)
+overlay.addEventListener('mousedown', e => { startY = e.clientY; isDragging=true; });
+overlay.addEventListener('mouseup', e => {
+    if(isDragging) {
+        let diff = startY - e.clientY;
+        if(diff > 50) {
+            overlay.classList.add('hidden');
+            menu.style.display = 'flex';
+        }
+        isDragging=false;
+    }
 });
 </script>
 
