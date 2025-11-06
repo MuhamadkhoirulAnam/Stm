@@ -1,269 +1,252 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STM Garage Recruitment</title>
+<meta name="viewport" content="https://imgur.com/a/eyQVYd1=device-width, initial-scale=1.0">
+<title>STM Company</title>
 <style>
-  body {
-    font-family: 'Segoe UI', sans-serif;
-    background: #1e1e2f;
-    color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-  }
-  header {
-    position: fixed;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+body, html {<
+    margin:0;
+    padding:0;
+    font-family:'Poppins', sans-serif;
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+}
+
+/* Parallax background */
+body::before {
+    content:"";
+    position:fixed;
     top:0;
     left:0;
     width:100%;
-    background: #27293d;
-    height:60px;
-    display:flex;
-    align-items:center;
-    justify-content: space-between;
-    padding: 0 20px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-    z-index: 100;
-  }
-  header h1 {
-    margin:0;
-    font-size:1.2rem;
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-  header h1 img {
-    height:40px;
-    border-radius:8px;
-  }
-  .hamburger {
-    cursor:pointer;
-    width:30px;
-    height:22px;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-  }
-  .hamburger div {
-    height:4px;
-    background:#f0f0f0;
-    border-radius:2px;
-    transition: all 0.3s ease;
-  }
-  nav {
-    position: fixed;
-    top:60px;
-    right:-250px;
-    width: 250px;
-    background:#343656;
-    height:100%;
-    transition: right 0.3s ease;
-    padding:20px;
-    box-shadow: -2px 0 6px rgba(0,0,0,0.5);
-  }
-  nav a {
-    display:block;
-    color:#f0f0f0;
-    text-decoration:none;
-    margin-bottom:15px;
-    font-weight:bold;
-  }
-  nav.show {
-    right:0;
-  }
-  main {
-    margin-top:80px;
-    padding:20px;
-    max-width:600px;
-    margin-left:auto;
-    margin-right:auto;
-  }
-  .card {
-    background:#27293d;
-    padding:20px;
-    border-radius:12px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.5);
+    height:200%;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    z-index:-1;
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* Header */
+header {
+    text-align:center;
+    padding:100px 20px 50px 20px; /* lebih bawah agar animasi terlihat */
+}
+
+header img.logo {
+    width:120px;
+    height:120px;
     margin-bottom:20px;
-    transition: transform 0.3s ease;
-  }
-  .card:hover {
-    transform: translateY(-5px);
-  }
-  label { display:block; margin-top:10px; }
-  input, textarea, select {
-    width:100%;
-    padding:10px;
-    margin-top:5px;
-    border-radius:6px;
-    border:none;
-    background:#1e1e2f;
-    color:#f0f0f0;
-  }
-  button {
-    margin-top:15px;
-    padding:10px 15px;
-    background:#5c6bc0;
-    color:#fff;
-    border:none;
-    border-radius:8px;
+    border-radius:50%;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 0 15px rgba(255,206,0,0.5);
+}
+header img.logo:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 30px rgba(255,206,0,0.8);
+}
+
+header h1 {
+    font-size:2rem;
+    color:#ffce00;
+    margin-bottom:10px;
+}
+
+header p {
+    font-size:1rem;
+    max-width:600px;
+    margin:0 auto;
+    line-height:1.5;
+    color: #ddd;
+}
+
+/* Menu */
+.menu-container {
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    margin-top:60px;
+}
+
+.menu-item {
+    width:90%;
+    max-width:400px;
+    background: rgba(255,255,255,0.05);
+    padding:18px;
+    border-radius:15px;
+    text-align:center;
+    font-size:1.2rem;
+    font-weight:600;
     cursor:pointer;
-    transition: background 0.3s;
-  }
-  button:hover { background:#3f51b5; }
-  .hidden { display:none; }
-  #riwayatList button {
-    margin-right:5px;
-    margin-top:5px;
-    padding:5px 8px;
-    background:#43a047;
-    border-radius:6px;
-  }
-  #riwayatList button:last-child { background:#e53935; }
+    box-shadow:0 5px 20px rgba(0,0,0,0.4);
+    transition: transform 0.3s, background 0.3s, opacity 0.5s, transform 0.5s;
+    text-decoration:none;
+    color:#fff;
+    margin:15px 0;
+
+    opacity:0;
+    transform: translateY(50px);
+}
+.menu-item.show {
+    opacity:1;
+    transform: translateY(0);
+}
+
+/* About section */
+#about {
+    max-width:600px;
+    margin:60px auto 100px auto; /* cukup bawah untuk animasi terlihat */
+    background: rgba(255,255,255,0.05);
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 5px 20px rgba(0,0,0,0.4);
+
+    opacity:0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+#about.show {
+    opacity:1;
+    transform: translateY(0);
+}
+
+#about h3 {
+    color:#ffce00;
+    margin-bottom:12px;
+    font-size:1.5rem;
+}
+
+#about p {
+    color:#ddd;
+    line-height:1.5;
+    font-size:0.95rem;
+}
+
+#about a {
+    display:inline-block;
+    margin-top:12px;
+    text-decoration:none;
+    color:#ffce00;
+    font-weight:bold;
+    padding:8px 18px;
+    border-radius:10px;
+    background: rgba(255,255,255,0.05);
+    transition:0.3s;
+}
+#about a:hover {
+    color:#000;
+    background:#ffce00;
+}
+
+/* Overlay animasi saat klik */
+.overlay {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.8);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#ffce00;
+    font-size:2rem;
+    z-index:1000;
+    opacity:0;
+    pointer-events:none;
+    transition: opacity 0.5s ease;
+}
+.overlay.show {
+    opacity:1;
+    pointer-events:auto;
+}
+
+/* Responsive */
+@media (max-width:768px) {
+    header h1 { font-size:1.7rem; }
+    header p { font-size:0.9rem; }
+    .menu-item { font-size:1rem; padding:15px; }
+    #about h3 { font-size:1.3rem; }
+    #about p { font-size:0.9rem; }
+    #about a { padding:7px 15px; font-size:0.9rem; }
+}
+
+@media (max-width:480px) {
+    header h1 { font-size:1.5rem; }
+    header p { font-size:0.85rem; }
+    .menu-item { font-size:0.95rem; padding:12px; }
+    #about h3 { font-size:1.2rem; }
+    #about p { font-size:0.85rem; }
+    #about a { padding:6px 12px; font-size:0.85rem; }
+}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>
-    <img src="logo.png" alt="STM Logo"> STM Garage Recruitment
-  </h1>
-  <div class="hamburger" id="hamburger">
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
+    <img src="https://imgur.com/a/eyQVYd1" alt="Logo STM" class="logo">
+    <h1>SELAMAT DATANG DI WORKSHOP SARJANA TEKNIK MEKANIK (STM)</h1>
+    <p>Workshop ini memiliki banyak cabang di kota dengan lokasi yang strategis dan mudah dijangkau oleh warga kota relatif. Workshop ini berdiri pada tanggal 16 September 2024.</p>
 </header>
 
-<nav id="menu">
-  <a href="https://discord.com" target="_blank">Link Discord</a>
-  <a href="#">Tentang STM Company</a>
-  <a href="#" id="logoutBtn">Logout</a>
-</nav>
+<div class="menu-container">
+    <a href="form_mekanik.html" target="_blank" class="menu-item">REKRUITMEN MEKANIK</a>
+    <a href="form_manager.html" target="_blank" class="menu-item">REKRUITMEN MANAGER</a>
+    <a href="form_asisten.html" target="_blank" class="menu-item">REKRUITMEN ASISTEN MANAGER</a>
+</div>
 
-<main>
-  <!-- Login Card -->
-  <div id="loginCard" class="card">
-    <h2>Login Discord</h2>
-    <button id="loginBtn">Login dengan Discord</button>
-  </div>
+<div id="about">
+    <h3>Tentang STM</h3>
+    <p>STM adalah workshop yang memiliki banyak cabang dengan lokasi strategis dan mudah dijangkau. Fokus kami adalah memberikan layanan mekanik terbaik dan pengalaman bekerja yang profesional bagi setiap anggota tim.</p>
+    <a href="https://discord.gg/qGDyPDQaEm" target="_blank">Join Discord STM</a>
+</div>
 
-  <!-- Form Lamaran -->
-  <div id="formCard" class="card hidden">
-    <h2>Form Lamaran</h2>
-    <form id="lamaranForm" enctype="multipart/form-data">
-      <label>NAMA IC:</label>
-      <input type="text" name="namaIC" required>
-      <label>LEVEL IC:</label>
-      <input type="text" name="levelIC" required>
-      <label>ALASAN BERGABUNG KE STM:</label>
-      <textarea name="alasan" required></textarea>
-      <label>NOTE (opsional):</label>
-      <textarea name="note"></textarea>
-      <label>TAG:</label>
-      <select name="tag" required>
-        <option value="Manager">Manager</option>
-        <option value="Asisten">Asisten</option>
-        <option value="Supervisor">Supervisor</option>
-        <option value="Staff Senior">Staff Senior</option>
-        <option value="Koordinator">Koordinator</option>
-      </select>
-      <label>SS STATS / TAB (opsional):</label>
-      <input type="file" name="file" accept="image/*">
-      <button type="submit">Kirim Lamaran</button>
-    </form>
-  </div>
-
-  <!-- Riwayat Lamaran -->
-  <div id="riwayatCard" class="card hidden">
-    <h2>Riwayat Lamaran</h2>
-    <div id="riwayatList"></div>
-  </div>
-</main>
+<div class="overlay" id="overlay">Membuka Form...</div>
 
 <script>
-  const hamburger = document.getElementById("hamburger");
-  const menu = document.getElementById("menu");
-  hamburger.addEventListener("click", () => menu.classList.toggle("show"));
+// Overlay klik menu
+const menuItems = document.querySelectorAll('.menu-item');
+const overlay = document.getElementById('overlay');
 
-  const loginBtn = document.getElementById("loginBtn");
-  const logoutBtn = document.getElementById("logoutBtn");
-  const loginCard = document.getElementById("loginCard");
-  const formCard = document.getElementById("formCard");
-  const riwayatCard = document.getElementById("riwayatCard");
-  const riwayatList = document.getElementById("riwayatList");
-  const lamaranForm = document.getElementById("lamaranForm");
-
-  async function checkLogin() {
-    const res = await fetch("/me");
-    const data = await res.json();
-    if(data.logged_in) {
-      loginCard.classList.add("hidden");
-      formCard.classList.remove("hidden");
-      riwayatCard.classList.remove("hidden");
-      loadRiwayat();
-    } else {
-      loginCard.classList.remove("hidden");
-      formCard.classList.add("hidden");
-      riwayatCard.classList.add("hidden");
-    }
-  }
-
-  async function loadRiwayat() {
-    const res = await fetch("/riwayat");
-    const data = await res.json();
-    riwayatList.innerHTML = "";
-    data.forEach(l => {
-      const div = document.createElement("div");
-      div.style.borderBottom = "1px solid #444";
-      div.style.padding = "5px 0";
-      div.innerHTML = `
-        <strong>${l.namaIC}</strong> (${l.tag}) - Status: ${l.status}<br>
-        Alasan: ${l.alasan}<br>
-        Note: ${l.note}<br>
-        Discord: ${l.discord_user.username}
-      `;
-      // tombol update status jika role sesuai
-      if(l.discord_user.can_update) {
-        div.innerHTML += `
-          <button onclick="updateStatus('${l.id}','Diterima')">Terima</button>
-          <button onclick="updateStatus('${l.id}','Ditolak')">Tolak</button>
-        `;
-      }
-      riwayatList.appendChild(div);
+menuItems.forEach(item => {
+    item.addEventListener('click', e => {
+        e.preventDefault();
+        const url = item.getAttribute('href');
+        overlay.classList.add('show');
+        setTimeout(() => {
+            window.open(url, '_blank');
+            overlay.classList.remove('show');
+        }, 1000);
     });
-  }
+});
 
-  async function updateStatus(id,status){
-    const res = await fetch("/update_status",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({id,status})
+// Scroll animation
+function scrollAnimate() {
+    const menu = document.querySelectorAll('.menu-item');
+    const about = document.getElementById('about');
+    const triggerBottom = window.innerHeight * 0.85;
+
+    menu.forEach(item => {
+        const itemTop = item.getBoundingClientRect().top;
+        if(itemTop < triggerBottom) item.classList.add('show');
     });
-    const data = await res.json();
-    if(data.success) loadRiwayat();
-    else alert(data.error);
-  }
 
-  loginBtn.addEventListener("click", ()=>{ window.location.href="/login"; });
-  logoutBtn.addEventListener("click", async ()=>{
-    await fetch("/logout");
-    checkLogin();
-  });
+    const aboutTop = about.getBoundingClientRect().top;
+    if(aboutTop < triggerBottom) about.classList.add('show');
+}
+window.addEventListener('scroll', scrollAnimate);
+window.addEventListener('load', scrollAnimate);
 
-  lamaranForm.addEventListener("submit", async (e)=>{
-    e.preventDefault();
-    const formData = new FormData(lamaranForm);
-    const res = await fetch("/submit", {method:"POST", body:formData});
-    const data = await res.json();
-    if(data.success){
-      alert("Lamaran terkirim!");
-      lamaranForm.reset();
-      loadRiwayat();
-    } else alert(data.error);
-  });
-
-  checkLogin();
+// Parallax background halus untuk desktop & mobile
+window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const bgShift = scrolled * 0.35; // terlihat lebih jelas
+    document.body.style.backgroundPosition = `center ${bgShift}px`;
+});
 </script>
 
 </body>
